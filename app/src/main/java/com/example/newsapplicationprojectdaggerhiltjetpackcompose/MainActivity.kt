@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.ContentToSee
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.databinding.ActivityMainBinding
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newssource.NewsSourceActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineActivity
 
 class MainActivity: AppCompatActivity() {
@@ -39,6 +40,10 @@ class MainActivity: AppCompatActivity() {
         binding.listView.setOnItemClickListener { parent, view, position, id ->
             if(position == 0) {
                 val intent = Intent(this, TopHeadlineActivity::class.java)
+                startActivity(intent)
+            }
+            else if(position == 1) {
+                val intent = Intent(this, NewsSourceActivity::class.java)
                 startActivity(intent)
             }
         }

@@ -5,6 +5,7 @@ import com.example.newsapplicationprojectdaggerhiltjetpackcompose.MyNewsApplicat
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.api.NetworkService
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.ApplicationContext
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.module.ApplicationModule
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.repository.NewsSourcesRepository
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.repository.TopHeadlineRepository
 import dagger.Component
 import javax.inject.Singleton
@@ -22,4 +23,5 @@ interface ApplicationComponent {
 
     fun getTopHeadlineRepository(): TopHeadlineRepository
 
+    fun getNewsSourcesRepository(): NewsSourcesRepository
 }

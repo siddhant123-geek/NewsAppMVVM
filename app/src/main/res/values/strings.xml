@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NewsApplicationProjectDaggerHiltJetpackCompose</string>
+    <string name="news_sources">News Sources</string>
 </resources>

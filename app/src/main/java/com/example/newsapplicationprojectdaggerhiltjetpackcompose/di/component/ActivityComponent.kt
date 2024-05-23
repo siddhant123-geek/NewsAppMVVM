@@ -2,6 +2,7 @@ package com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.component
 
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.ActivityScope
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.module.ActivityModule
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newssource.NewsSourceActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineActivity
 import dagger.Component
 
@@ -10,5 +11,5 @@ import dagger.Component
 interface ActivityComponent {
 
     fun inject(activity: TopHeadlineActivity)
-
+    fun inject(activity: NewsSourceActivity)
 }
