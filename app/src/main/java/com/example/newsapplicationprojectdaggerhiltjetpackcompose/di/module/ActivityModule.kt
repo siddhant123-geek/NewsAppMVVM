@@ -8,6 +8,8 @@ import com.example.newsapplicationprojectdaggerhiltjetpackcompose.repository.New
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.repository.TopHeadlineRepository
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ViewModelProviderFactory
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.country.CountriesPageAdapter
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.instantsearch.InstantSearchAdapter
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.instantsearch.InstantSearchViewModel
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.language.LanguagesAdapter
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbycountry.NewsByCountryViewModel
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbylanguage.NewsByLanguageViewModel
@@ -61,6 +63,17 @@ class ActivityModule(private val activity: AppCompatActivity) {
                 NewsByLanguageViewModel(topHeadlineRepository)
             })[NewsByLanguageViewModel::class.java]
     }
+
+    @Provides
+    fun provideInstantSearchViewModel(topHeadlineRepository: TopHeadlineRepository): InstantSearchViewModel {
+        return ViewModelProvider(activity,
+            ViewModelProviderFactory(InstantSearchViewModel::class) {
+                InstantSearchViewModel(topHeadlineRepository)
+            })[InstantSearchViewModel::class.java]
+    }
+
+    @Provides
+    fun provideInstantSearchAdapter() = InstantSearchAdapter(ArrayList())
 
     @Provides
     fun provideNewsSourcesAdapter() = NewsSourceAdapter(ArrayList())

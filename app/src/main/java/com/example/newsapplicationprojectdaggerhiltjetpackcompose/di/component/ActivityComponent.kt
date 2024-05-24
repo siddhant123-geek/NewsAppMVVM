@@ -3,6 +3,7 @@ package com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.component
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.ActivityScope
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.module.ActivityModule
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.country.CountriesPageActivity
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.instantsearch.InstantSearchActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.language.LanguagesActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbycountry.NewsByCountryActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbylanguage.NewsByLanguageActivity
@@ -24,4 +25,6 @@ interface ActivityComponent {
     fun inject(activity: LanguagesActivity)
 
     fun inject(activity: NewsByLanguageActivity)
+
+    fun inject(activity: InstantSearchActivity)
 }
