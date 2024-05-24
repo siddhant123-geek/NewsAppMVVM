@@ -8,7 +8,9 @@ import com.example.newsapplicationprojectdaggerhiltjetpackcompose.repository.New
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.repository.TopHeadlineRepository
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ViewModelProviderFactory
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.country.CountriesPageAdapter
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.language.LanguagesAdapter
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbycountry.NewsByCountryViewModel
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbylanguage.NewsByLanguageViewModel
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newssource.NewsSourceAdapter
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newssource.NewsSourceViewModel
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineAdapter
@@ -53,8 +55,19 @@ class ActivityModule(private val activity: AppCompatActivity) {
     }
 
     @Provides
+    fun provideNewsByLanguageViewModel(topHeadlineRepository: TopHeadlineRepository): NewsByLanguageViewModel {
+        return ViewModelProvider(activity,
+            ViewModelProviderFactory(NewsByLanguageViewModel::class) {
+                NewsByLanguageViewModel(topHeadlineRepository)
+            })[NewsByLanguageViewModel::class.java]
+    }
+
+    @Provides
     fun provideNewsSourcesAdapter() = NewsSourceAdapter(ArrayList())
 
     @Provides
     fun provideCountriesPageAdapter() = CountriesPageAdapter(ArrayList())
+
+    @Provides
+    fun provideLanguagesPageAdapter() = LanguagesAdapter(ArrayList())
 }

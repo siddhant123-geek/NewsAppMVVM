@@ -18,4 +18,21 @@ object IsoCodes {
         "Germany" to "de",
         "Egypt" to "eg"
     )
+
+    val languageToIsoCodeMap = hashMapOf(
+        "Arabic" to "ar",
+        "German" to "de",
+        "English" to "en",
+        "Spanish" to "es",
+        "French" to "fr",
+        "Hebrew" to "he",
+        "Italian" to "it",
+        "Dutch" to "nl",
+        "Norwegian" to "no",
+        "Portuguese" to "pt",
+        "Russian" to "ru",
+        "Swedish" to "sv",
+        "Urdu" to "ud",
+        "Chinese" to "zh"
+    )
 }

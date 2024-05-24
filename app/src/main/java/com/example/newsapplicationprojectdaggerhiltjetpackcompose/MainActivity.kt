@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.ContentToSee
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.databinding.ActivityMainBinding
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.country.CountriesPageActivity
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.language.LanguagesActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newssource.NewsSourceActivity
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineActivity
 
@@ -49,6 +50,10 @@ class MainActivity: AppCompatActivity() {
             }
             else if (position == 2){
                 val intent = Intent(this, CountriesPageActivity::class.java)
+                startActivity(intent)
+            }
+            else if(position == 3) {
+                val intent = Intent(this, LanguagesActivity::class.java)
                 startActivity(intent)
             }
         }
