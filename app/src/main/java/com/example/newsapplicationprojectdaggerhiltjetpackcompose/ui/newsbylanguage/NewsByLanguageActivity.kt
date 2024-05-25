@@ -5,25 +5,24 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.MyNewsApplication
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.ApiArticle
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.databinding.ActivityTopHeadlineBinding
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.component.DaggerActivityComponent
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.module.ActivityModule
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.UiState
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineAdapter
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.AppConstants
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NewsByLanguageActivity: AppCompatActivity() {
+@AndroidEntryPoint
+class NewsByLanguageActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var newsByLanguageViewModel: NewsByLanguageViewModel
+    private lateinit var newsByLanguageViewModel: NewsByLanguageViewModel
 
     @Inject
     lateinit var adapter: TopHeadlineAdapter
@@ -31,13 +30,17 @@ class NewsByLanguageActivity: AppCompatActivity() {
     private lateinit var binding: ActivityTopHeadlineBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         binding = ActivityTopHeadlineBinding.inflate(layoutInflater)
         val languageCode: String? = intent.getStringExtra(AppConstants.ISO_CODE_KEY)
+        setupViewModel()
         setContentView(binding.root)
         setupUI()
         setupObserver(languageCode!!)
+    }
+
+    private fun setupViewModel() {
+        newsByLanguageViewModel = ViewModelProvider(this)[NewsByLanguageViewModel::class.java]
     }
 
     private fun setupUI() {
@@ -63,14 +66,20 @@ class NewsByLanguageActivity: AppCompatActivity() {
                             renderList(it.data)
                             binding.recyclerView.visibility = View.VISIBLE
                         }
+
                         is UiState.Loading -> {
                             binding.progressBar.visibility = View.VISIBLE
                             binding.recyclerView.visibility = View.GONE
                         }
+
                         is UiState.Error -> {
                             //Handle Error
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this@NewsByLanguageActivity, it.message, Toast.LENGTH_LONG)
+                            Toast.makeText(
+                                this@NewsByLanguageActivity,
+                                it.message,
+                                Toast.LENGTH_LONG
+                            )
                                 .show()
                         }
                     }
@@ -82,11 +91,5 @@ class NewsByLanguageActivity: AppCompatActivity() {
     private fun renderList(articleList: List<ApiArticle>) {
         adapter.addData(articleList)
         adapter.notifyDataSetChanged()
-    }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent.builder()
-            .applicationComponent((application as MyNewsApplication).applicationComponent)
-            .activityModule(ActivityModule(this)).build().inject(this)
     }
 }

@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.MyNewsApplication
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.Country
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.databinding.ActivityCountriesPageBinding
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.component.DaggerActivityComponent
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.module.ActivityModule
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CountriesPageActivity: AppCompatActivity() {
     companion object {
         val countries = listOf(
@@ -40,7 +39,6 @@ class CountriesPageActivity: AppCompatActivity() {
     private lateinit var countriesTexts: ArrayList<Country>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         binding = ActivityCountriesPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -60,11 +58,5 @@ class CountriesPageActivity: AppCompatActivity() {
         adapter = CountriesPageAdapter(countriesTexts)
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
-    }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent.builder()
-            .applicationComponent((application as MyNewsApplication).applicationComponent)
-            .activityModule(ActivityModule(this)).build().inject(this)
     }
 }

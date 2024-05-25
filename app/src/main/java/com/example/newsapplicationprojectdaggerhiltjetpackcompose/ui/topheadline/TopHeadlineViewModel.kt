@@ -6,12 +6,16 @@ import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.Api
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.repository.TopHeadlineRepository
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.UiState
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.AppConstants.COUNTRY
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TopHeadlineViewModel(private val topHeadlineRepository: TopHeadlineRepository) : ViewModel() {
+@HiltViewModel
+class TopHeadlineViewModel @Inject constructor(private val topHeadlineRepository:
+                                               TopHeadlineRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState<List<ApiArticle>>>(UiState.Loading)
 

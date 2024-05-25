@@ -1,24 +1,18 @@
 package com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.module
 
-import android.content.Context
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.MyNewsApplication
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.api.NetworkService
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.ApplicationContext
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.di.BaseUrl
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.BaseUrl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
-class ApplicationModule(private val application: MyNewsApplication) {
-
-    @ApplicationContext
-    @Provides
-    fun provideContext(): Context {
-        return application
-    }
+class ApplicationModule {
 
     @BaseUrl
     @Provides
@@ -40,5 +34,4 @@ class ApplicationModule(private val application: MyNewsApplication) {
             .build()
             .create(NetworkService::class.java)
     }
-
 }
