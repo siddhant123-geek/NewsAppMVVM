@@ -1,5 +1,6 @@
 package com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model
 
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.local.entity.Article
 import com.google.gson.annotations.SerializedName
 
 data class ApiArticle(
@@ -14,3 +15,13 @@ data class ApiArticle(
     @SerializedName("source")
     val source: ApiSource
 )
+
+fun ApiArticle.toArticleEntity(): Article {
+    return Article(
+        title = title,
+        description = description,
+        url = url,
+        imageUrl = imageUrl,
+        source = source.toSourceEntity()
+    )
+}

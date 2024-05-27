@@ -11,16 +11,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineScreen
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.IsoCodes
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.NetworkHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsByCountryRoute(
     onNewsClick: (url: String) -> Unit,
     viewModel: NewsByCountryViewModel = hiltViewModel(),
-    country: String
+    country: String,
+    netWorkHelper: NetworkHelper
 ) {
     val countryCode = IsoCodes.countryToISOCodeMap[country]
-    viewModel.fetchNews(countryCode!!)
+    if(netWorkHelper.isNetworkConnected()) {
+        viewModel.fetchNews(countryCode!!)
+    }
+    else {
+        viewModel.fetchNewsDirectlyFromDB()
+    }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(content = { padding ->

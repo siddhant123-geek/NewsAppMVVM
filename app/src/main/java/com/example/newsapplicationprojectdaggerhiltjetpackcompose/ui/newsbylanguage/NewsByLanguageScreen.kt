@@ -11,16 +11,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineScreen
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.IsoCodes
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.NetworkHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsByLanguageRoute(
     onNewsClick: (url: String) -> Unit,
     viewModel: NewsByLanguageViewModel = hiltViewModel(),
-    language: String
+    language: String,
+    netWorkHelper: NetworkHelper
 ) {
     val languageCode = IsoCodes.languageToIsoCodeMap[language]
-    viewModel.fetchNews(languageCode!!)
+    if(netWorkHelper.isNetworkConnected()) {
+        viewModel.fetchNews(languageCode!!)
+    }
+    else {
+        viewModel.fetchNewsDirectlyFromDB()
+    }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(content = { padding ->

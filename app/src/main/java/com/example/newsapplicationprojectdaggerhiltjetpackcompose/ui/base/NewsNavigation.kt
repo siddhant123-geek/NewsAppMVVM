@@ -17,6 +17,7 @@ import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbycount
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbylanguage.NewsByLanguageRoute
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newssource.NewsSourceRoute
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineRoute
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.DefaultNetworkHelper
 
 open class Route(val name: String) {
     object Home: Route("home")
@@ -34,6 +35,7 @@ fun NewsNavHost() {
 
     val navController = rememberNavController()
     val context = LocalContext.current
+    val netWorkHelper = DefaultNetworkHelper(context)
 
     NavHost(
         navController = navController,
@@ -65,7 +67,7 @@ fun NewsNavHost() {
         composable(route = Route.NewsByCountry.name) {
             val country = it.arguments?.getString("country")
             NewsByCountryRoute(onNewsClick = { openCustomChromeTab(context, it) },
-                country = country!!)
+                country = country!!, netWorkHelper = netWorkHelper)
         }
 
         //Languages
@@ -80,7 +82,7 @@ fun NewsNavHost() {
         composable(route = Route.NewsByLanguage.name) {
             val language = it.arguments?.getString("language")
             NewsByLanguageRoute(onNewsClick = { openCustomChromeTab(context, it) },
-                language = language!!)
+                language = language!!, netWorkHelper = netWorkHelper)
         }
         composable(route = Route.Search.name) {
             InstantSearchRoute(onNewsClick = {openCustomChromeTab(context, it)})

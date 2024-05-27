@@ -78,4 +78,9 @@ dependencies {
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation ("androidx.navigation:navigation-compose:2.6.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+
+    // room db dependencies
+    implementation ("androidx.room:room-runtime:2.5.0")
+    implementation ("androidx.room:room-ktx:2.5.0")
+    kapt ("androidx.room:room-compiler:2.5.0")
 }

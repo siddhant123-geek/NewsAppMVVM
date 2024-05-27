@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.ApiSource
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.local.entity.Source
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.CreateHeading
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ShowError
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ShowLoading
@@ -47,10 +47,9 @@ fun NewsSourceRoute(
 }
 
 @Composable
-fun NewsSourceScreen(uiState: UiState<List<ApiSource>>, onNewsClick: (url: String) -> Unit) {
+fun NewsSourceScreen(uiState: UiState<List<Source>>, onNewsClick: (url: String) -> Unit) {
     when (uiState) {
-        is UiState.Success -> {
-            SourceHeading()
+        is UiState.Success -> {SourceHeading()
             SourceList(uiState.data, onNewsClick)
         }
 
@@ -71,16 +70,16 @@ fun SourceHeading() {
 
 
 @Composable
-fun SourceList(sources: List<ApiSource>, onNewsClick: (url: String) -> Unit) {
+fun SourceList(sources: List<Source>, onNewsClick: (url: String) -> Unit) {
     LazyColumn {
-        items(sources, key = { article -> article.url }) { source ->
-            Source(source, onNewsClick)
+        items(sources, key = { source -> source.id }) { source ->
+            SourceComposable(source, onNewsClick)
         }
     }
 }
 
 @Composable
-fun Source(source: ApiSource, onNewsClick: (url: String) -> Unit) {
+fun SourceComposable(source: Source, onNewsClick: (url: String) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -90,7 +89,7 @@ fun Source(source: ApiSource, onNewsClick: (url: String) -> Unit) {
                 shape = RoundedCornerShape(8.dp)
             ) // Add border
             .clickable {
-                if (source.url.isNotEmpty()) {
+                if (!source.url.isNullOrEmpty()) {
                     onNewsClick(source.url)
                 }
             }
@@ -98,11 +97,12 @@ fun Source(source: ApiSource, onNewsClick: (url: String) -> Unit) {
         Column(
             modifier = Modifier
                 .padding(16.dp)
+                .fillMaxWidth()
                 .background(Color.Cyan)
         ) {
             TitleText(source.name)
             Spacer(modifier = Modifier.height(8.dp))
-            DescriptionText(source.description)
+            DescriptionText(source.name)
         }
     }
 }

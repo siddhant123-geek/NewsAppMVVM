@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.R
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.local.entity.Article
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.ApiArticle
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ShowError
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ShowLoading
@@ -49,7 +50,7 @@ fun InstantSearchRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-    uiState: UiState<List<ApiArticle>>,
+    uiState: UiState<List<Article>>,
     query: String,
     onNewsClick: (url: String) -> Unit,
     onSearchQueryChange: (String) -> Unit

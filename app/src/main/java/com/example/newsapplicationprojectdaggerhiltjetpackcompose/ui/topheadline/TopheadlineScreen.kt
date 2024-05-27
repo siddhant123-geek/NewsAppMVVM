@@ -20,6 +20,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.local.entity.Article
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.local.entity.Source
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.ApiArticle
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.ApiSource
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ShowError
@@ -43,7 +45,7 @@ fun TopHeadlineRoute(
 }
 
 @Composable
-fun TopHeadlineScreen(uiState: UiState<List<ApiArticle>>, onNewsClick: (url: String) -> Unit) {
+fun TopHeadlineScreen(uiState: UiState<List<Article>>, onNewsClick: (url: String) -> Unit) {
     when (uiState) {
         is UiState.Success -> {
             ArticleList(uiState.data, onNewsClick)
@@ -60,20 +62,20 @@ fun TopHeadlineScreen(uiState: UiState<List<ApiArticle>>, onNewsClick: (url: Str
 }
 
 @Composable
-fun ArticleList(articles: List<ApiArticle>, onNewsClick: (url: String) -> Unit) {
+fun ArticleList(articles: List<Article>, onNewsClick: (url: String) -> Unit) {
     LazyColumn {
-        items(articles, key = { article -> article.url }) { article ->
+        items(articles, key = { article -> article.id }) { article ->
             Article(article, onNewsClick)
         }
     }
 }
 
 @Composable
-fun Article(article: ApiArticle, onNewsClick: (url: String) -> Unit) {
+fun Article(article: Article, onNewsClick: (url: String) -> Unit) {
     Column(modifier = Modifier
         .fillMaxWidth()
         .clickable {
-            if (article.url.isNotEmpty()) {
+            if (!article.url.isNullOrEmpty()) {
                 onNewsClick(article.url)
             }
         }) {
@@ -86,7 +88,7 @@ fun Article(article: ApiArticle, onNewsClick: (url: String) -> Unit) {
 }
 
 @Composable
-fun BannerImage(article: ApiArticle) {
+fun BannerImage(article: Article) {
     AsyncImage(
         model = article.imageUrl,
         contentDescription = article.title,
@@ -124,7 +126,7 @@ fun DescriptionText(description: String?) {
 }
 
 @Composable
-fun SourceText(source: ApiSource) {
+fun SourceText(source: Source) {
     Text(
         text = source.name,
         style = MaterialTheme.typography.titleSmall,
