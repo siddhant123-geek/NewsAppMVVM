@@ -27,6 +27,7 @@ import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.Api
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ShowError
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.ShowLoading
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.base.UiState
+import org.tinylog.Logger
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,14 +49,19 @@ fun TopHeadlineRoute(
 fun TopHeadlineScreen(uiState: UiState<List<Article>>, onNewsClick: (url: String) -> Unit) {
     when (uiState) {
         is UiState.Success -> {
+            Logger.debug("Coming inside success inside TopHeadlineScreen", null)
             ArticleList(uiState.data, onNewsClick)
         }
 
         is UiState.Loading -> {
+            Logger.debug("Coming inside loading inside TopHeadlineScreen", null)
             ShowLoading()
         }
 
         is UiState.Error -> {
+            Logger.error("Coming inside error inside TopHeadlineScreen with error message" +
+                    " ${uiState.message}",
+                    null)
             ShowError(uiState.message)
         }
     }

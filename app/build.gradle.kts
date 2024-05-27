@@ -90,4 +90,8 @@ dependencies {
 
     // Work manager
     implementation ("androidx.work:work-runtime-ktx:2.7.0")
+
+    // tinylog dependencies
+    implementation("org.tinylog:tinylog-api:2.7.0")
+    implementation("org.tinylog:tinylog-impl:2.7.0")
 }

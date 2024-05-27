@@ -18,6 +18,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.R
+import org.tinylog.Logger
 
 @Composable
 fun ShowLoading() {
@@ -55,6 +56,7 @@ fun ShowError(text: String) {
 
 @Composable
 fun CreateHeading(nameOfTheScreen: String) {
+    Logger.debug("name of the screen for creating the heading is $nameOfTheScreen", null)
     Box(
         modifier = Modifier
             .fillMaxWidth() // Make the Box occupy the entire width
