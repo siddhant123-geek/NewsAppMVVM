@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsByLanguageViewModel @Inject constructor(private val topHeadlineRepository: TopHeadlineRepository) :
-    ViewModel() {
+class NewsByLanguageViewModel @Inject constructor(private val topHeadlineRepository: TopHeadlineRepository)
+    : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState<List<ApiArticle>>>(UiState.Loading)
 

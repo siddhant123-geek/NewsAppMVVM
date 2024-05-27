@@ -28,19 +28,20 @@ class InstantSearchViewModel @Inject constructor(private val topHeadlineReposito
 
     val uiState: StateFlow<UiState<List<ApiArticle>>> = _uiState
 
-    private val query = MutableStateFlow("")
+    private val _query = MutableStateFlow("")
+    val query = _query
 
     init {
         createNewsFlow()
     }
 
     fun searchNews(searchQuery: String) {
-        query.value = searchQuery
+        _query.value = searchQuery
     }
 
     private fun createNewsFlow() {
         viewModelScope.launch {
-            query.debounce(DEBOUNCE_TIMEOUT)
+            _query.debounce(DEBOUNCE_TIMEOUT)
                 .filter {
                     if (it.isNotEmpty() && it.length >= MIN_SEARCH_CHAR) {
                         return@filter true

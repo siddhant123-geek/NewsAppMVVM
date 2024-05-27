@@ -3,4 +3,6 @@
     <string name="news_sources">News Sources</string>
     <string name="countries">Countries</string>
     <string name="languages">Languages</string>
+    <string name="loading">Loading...</string>
+    <string name="search">Search</string>
 </resources>
