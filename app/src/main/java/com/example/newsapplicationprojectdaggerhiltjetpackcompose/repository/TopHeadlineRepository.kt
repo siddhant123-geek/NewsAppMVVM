@@ -1,10 +1,14 @@
 package com.example.newsapplicationprojectdaggerhiltjetpackcompose.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.api.NetworkService
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.local.MyAppDataBaseService
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.local.entity.Article
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.ApiArticle
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.data.model.toArticleEntity
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.AppConstants.PAGE_SIZE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -33,6 +37,17 @@ class TopHeadlineRepository @Inject constructor(
 
     fun getArticlesDirectlyFromDB(): Flow<List<Article>> {
         return dataBaseService.getArticles()
+    }
+
+    fun getTopHeadlines(): Flow<PagingData<ApiArticle>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                TopHeadlinePagingSource(networkService)
+            }
+        ).flow
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

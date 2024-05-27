@@ -29,6 +29,7 @@ import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.AppConst
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.AppConstants.SEARCH
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.AppConstants.SOURCES
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.AppConstants.TOP_HEADLINES
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.AppConstants.TOP_HEADLINES_WITH_PAGING
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,6 +52,7 @@ fun HomeScreen(onItemClick: (url: Route) -> Unit) {
     homeScreenList.add(HomeItem(3, Route.Countries, COUNTRIES))
     homeScreenList.add(HomeItem(4, Route.Language, LANGUAGES))
     homeScreenList.add(HomeItem(5, Route.Search, SEARCH))
+    homeScreenList.add(HomeItem(6, Route.TopHeadlineWithPaging, TOP_HEADLINES_WITH_PAGING))
 
     LazyColumn {
         items(homeScreenList, key = { homeItem -> homeItem.id }) { homeItem ->

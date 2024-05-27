@@ -17,11 +17,13 @@ import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbycount
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newsbylanguage.NewsByLanguageRoute
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.newssource.NewsSourceRoute
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadline.TopHeadlineRoute
+import com.example.newsapplicationprojectdaggerhiltjetpackcompose.ui.topheadlineswithpaging.TopHeadlineWithPagingRoute
 import com.example.newsapplicationprojectdaggerhiltjetpackcompose.utils.DefaultNetworkHelper
 
 open class Route(val name: String) {
     object Home: Route("home")
     object TopHeadline : Route("topheadline")
+    object TopHeadlineWithPaging : Route("topheadlinewithpaging")
     object NewsSource : Route("newssource")
     object Countries : Route("countries")
     object NewsByCountry : Route("{country}/newsbycountry")
@@ -46,6 +48,11 @@ fun NewsNavHost() {
         }
         composable(route = Route.TopHeadline.name) {
             TopHeadlineRoute(onNewsClick = {
+                openCustomChromeTab(context, it)
+            })
+        }
+        composable(route = Route.TopHeadlineWithPaging.name) {
+            TopHeadlineWithPagingRoute(onNewsClick = {
                 openCustomChromeTab(context, it)
             })
         }
