@@ -17,6 +17,17 @@ This is my News Application project, where I have used the modern  best practice
 - **Tinylog** for log rotation and debugging
 
 
+# Naming some more concepts used in the application
+- **Debounce operator** - For efficiently searching the news and not making repetitive unnecessary api calls
+- **FlatMapLatest** - Making the api call for the latest entered result and ignoring the older ones
+- **Filter** - Filtering out the required data from the raw data fetched from the server
+- **FlatMapConcat** - Transforms each value of the flow sequentially
+- **Map** - Transforms each value of the flow item into another type
+- **Coroutine** - For performing asynchronous fetching of data from db or network
+- **Flow** - Asynchronous data type used
+- **StateFlow** - Obervable asynchronous data structure used
+
+
 # Detailed summary of the screens implemented
 # TopheadlinesScreen
 - Shows a generic list of news from the database which is populated by news fetched from the newsApi.
@@ -44,17 +55,6 @@ This is my News Application project, where I have used the modern  best practice
   
 # Attaching the screenshots of the pages for reference
 ![NewsApplicationScreens](https://github.com/siddhant123-geek/MyNewsApplicationProjectWithJetpackComposeAndDaggerHilt/assets/82453362/29b99236-44fb-46b7-9422-11c8dc9498d2)
-
-
-# Naming some more concepts used in the application
-- **Debounce operator** - For efficiently searching the news and not making repetitive unnecessary api calls
-- **FlatMapLatest** - Making the api call for the latest entered result and ignoring the older ones
-- **Filter** - Filtering out the required data from the raw data fetched from the server
-- **FlatMapConcat** - Transforms each value of the flow sequentially
-- **Map** - Transforms each value of the flow item into another type
-- **Coroutine** - For performing asynchronous fetching of data from db or network
-- **Flow** - Asynchronous data type used
-- **StateFlow** - Obervable asynchronous data structure used
 
 
 # Dependencies used 
@@ -98,9 +98,164 @@ This is my News Application project, where I have used the modern  best practice
 
 # Coil 
     implementation ("io.coil-kt:coil-compose:2.4.0")
-    
-  
 
 
-
-
+# The project structure
+```bash
+├───androidTest
+│   └───java
+│       └───com
+│           └───example
+│               └───newsapplicationprojectdaggerhiltjetpackcompose
+│                       ExampleInstrumentedTest.kt
+│
+├───main
+│   │   AndroidManifest.xml
+│   │
+│   ├───java
+│   │   └───com
+│   │       └───example
+│   │           └───newsapplicationprojectdaggerhiltjetpackcompose
+│   │               │   MainActivity.kt
+│   │               │   MyNewsApplication.kt
+│   │               │
+│   │               ├───data
+│   │               │   │   MyNewsFetchWork.kt
+│   │               │   │
+│   │               │   ├───api
+│   │               │   │       NetworkService.kt
+│   │               │   │
+│   │               │   ├───local
+│   │               │   │   │   DataBaseService.kt
+│   │               │   │   │   MyAppDataBase.kt
+│   │               │   │   │   MyAppDataBaseService.kt
+│   │               │   │   │
+│   │               │   │   ├───dao
+│   │               │   │   │       ArticleDao.kt
+│   │               │   │   │       SourceDao.kt
+│   │               │   │   │
+│   │               │   │   └───entity
+│   │               │   │           Article.kt
+│   │               │   │           Source.kt
+│   │               │   │
+│   │               │   └───model
+│   │               │           ApiArticle.kt
+│   │               │           ApiSource.kt
+│   │               │           ContentToSee.kt
+│   │               │           Country.kt
+│   │               │           HomeItem.kt
+│   │               │           Language.kt
+│   │               │           NewsSourcesResponse.kt
+│   │               │           TopHeadlineResponse.kt
+│   │               │
+│   │               ├───di
+│   │               │   └───module
+│   │               │           ApplicationModule.kt
+│   │               │
+│   │               ├───repository
+│   │               │       NewsSourcesRepository.kt
+│   │               │       TopHeadlineRepository.kt
+│   │               │       TopHeadlingPagingSource.kt
+│   │               │
+│   │               ├───ui
+│   │               │   │   HomeScreen.kt
+│   │               │   │
+│   │               │   ├───base
+│   │               │   │       CommonUi.kt
+│   │               │   │       NewsNavigation.kt
+│   │               │   │       Qualifiers.kt
+│   │               │   │       UiState.kt
+│   │               │   │
+│   │               │   ├───country
+│   │               │   │       CountriesScreen.kt
+│   │               │   │
+│   │               │   ├───instantsearch
+│   │               │   │       InstantSearchScreen.kt
+│   │               │   │       InstantSearchViewModel.kt
+│   │               │   │
+│   │               │   ├───language
+│   │               │   │       LanguagesScreen.kt
+│   │               │   │
+│   │               │   ├───newsbycountry
+│   │               │   │       NewsByCountryScreen.kt
+│   │               │   │       NewsByCountryViewModel.kt
+│   │               │   │
+│   │               │   ├───newsbylanguage
+│   │               │   │       NewsByLanguageScreen.kt
+│   │               │   │       NewsByLanguageViewModel.kt
+│   │               │   │
+│   │               │   ├───newssource
+│   │               │   │       NewsSourceScreen.kt
+│   │               │   │       NewsSourceViewModel.kt
+│   │               │   │
+│   │               │   ├───theme
+│   │               │   │       Color.kt
+│   │               │   │       Theme.kt
+│   │               │   │       Type.kt
+│   │               │   │
+│   │               │   ├───topheadline
+│   │               │   │       TopheadlineScreen.kt
+│   │               │   │       TopHeadlineViewModel.kt
+│   │               │   │
+│   │               │   └───topheadlineswithpaging
+│   │               │           TopheadlinesWithPagingScreen.kt
+│   │               │           TopHeadlinesWithPagingViewModel.kt
+│   │               │
+│   │               └───utils
+│   │                       AppConstants.kt
+│   │                       IsoCodes.kt
+│   │                       NetworkHelper.kt
+│   │
+│   ├───res
+│   │   ├───dimens
+│   │   ├───drawable
+│   │   │       ic_launcher_background.xml
+│   │   │       ic_launcher_foreground.xml
+│   │   │
+│   │   ├───mipmap-anydpi-v26
+│   │   │       ic_launcher.xml
+│   │   │       ic_launcher_round.xml
+│   │   │
+│   │   ├───mipmap-hdpi
+│   │   │       ic_launcher.webp
+│   │   │       ic_launcher_round.webp
+│   │   │
+│   │   ├───mipmap-mdpi
+│   │   │       ic_launcher.webp
+│   │   │       ic_launcher_round.webp
+│   │   │
+│   │   ├───mipmap-xhdpi
+│   │   │       ic_launcher.webp
+│   │   │       ic_launcher_round.webp
+│   │   │
+│   │   ├───mipmap-xxhdpi
+│   │   │       ic_launcher.webp
+│   │   │       ic_launcher_round.webp
+│   │   │
+│   │   ├───mipmap-xxxhdpi
+│   │   │       ic_launcher.webp
+│   │   │       ic_launcher_round.webp
+│   │   │
+│   │   ├───values
+│   │   │       colors.xml
+│   │   │       dimens.xml
+│   │   │       strings.xml
+│   │   │       themes.xml
+│   │   │
+│   │   ├───values-night
+│   │   │       themes.xml
+│   │   │
+│   │   └───xml
+│   │           backup_rules.xml
+│   │           data_extraction_rules.xml
+│   │
+│   └───resources
+│           tinylog.properties
+│
+└───test
+    └───java
+        └───com
+            └───example
+                └───newsapplicationprojectdaggerhiltjetpackcompose
+                        ExampleUnitTest.kt
+```
