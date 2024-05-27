@@ -87,4 +87,7 @@ dependencies {
     // paging data dependencies
     implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
     implementation ("androidx.paging:paging-compose:3.2.1")
+
+    // Work manager
+    implementation ("androidx.work:work-runtime-ktx:2.7.0")
 }
