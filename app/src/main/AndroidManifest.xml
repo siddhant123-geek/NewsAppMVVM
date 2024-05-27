@@ -7,7 +7,7 @@
 
 
     <application
-        android:name=".MyNewsApplication"
+        android:name=".NewsApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,41 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApp"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.topheadline.TopHeadlineActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".ui.newssource.NewsSourceActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".ui.country.CountriesPageActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".ui.newsbycountry.NewsByCountryActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".ui.language.LanguagesActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".ui.newsbylanguage.NewsByLanguageActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".ui.instantsearch.InstantSearchActivity"
-            android:exported="true">
-        </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
